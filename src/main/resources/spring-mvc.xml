@@ -9,11 +9,11 @@
 	http://www.springframework.org/schema/mvc
 	http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
-	<context:component-scan base-package="com.netease.Web_HomeWork.controller" />
 	<mvc:annotation-driven />
+	<context:component-scan base-package="com.netease.Java_Final.web.controller" />
 	<bean id="freemarkerConfig"
 		class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
-		<property name="templateLoaderPath" value="/template" />
+		<property name="templateLoaderPath" value="/WEB-INF/freemarker" />
 	</bean>
 
 	<bean
@@ -26,11 +26,6 @@
 					<property name="prefix" value=""></property>
 					<property name="suffix" value=".ftl"></property>
 					<property name="contentType" value="text/html; charset=utf-8"></property>
-				</bean>
-				<bean
-					class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-					<property name="prefix" value="/WEB-INF/view/"></property>
-					<property name="suffix" value=".jsp"></property>
 				</bean>
 			</list>
 		</property>
