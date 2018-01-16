@@ -22,6 +22,7 @@ import com.netease.JavaFinal.meta.Content;
 import com.netease.JavaFinal.meta.Person;
 import com.netease.JavaFinal.utils.CurrentUser;
 import com.netease.JavaFinal.web.viewmodel.ContentEditModel;
+import com.netease.JavaFinal.web.viewmodel.ProductShowModel;
 
 @Controller
 public class ChannelController {
@@ -89,6 +90,20 @@ public class ChannelController {
 			modelView.addAllObjects(modelMap);
 			return modelView;
 		}
+	}
+	
+	@RequestMapping(value = "/show", method = RequestMethod.GET)
+	public String Show(@RequestParam("id") int id, @CurrentUser Person user, Model model) {
+		Content content = contentDao.GetById(id);
+		if(content != null) {
+			model.addAttribute("title", content.getTitle());
+			ProductShowModel product = new ProductShowModel(content, user);
+			model.addAttribute("product", product);
+		}
+		else {
+			model.addAttribute("title", "内容不存在");
+		}
+		return "show";
 	}
 
 }

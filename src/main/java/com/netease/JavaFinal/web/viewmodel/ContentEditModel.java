@@ -1,5 +1,7 @@
 package com.netease.JavaFinal.web.viewmodel;
 
+import java.sql.Blob;
+
 import com.netease.JavaFinal.meta.Content;
 
 public class ContentEditModel {
@@ -8,9 +10,9 @@ public class ContentEditModel {
 	private String title;
 	private int price;
 	private String summary;
-	private String image;
-	private String detail;
-	
+	private Blob image;
+	private Blob detail;
+
 	public Integer getId() {
 		return id;
 	}
@@ -43,28 +45,27 @@ public class ContentEditModel {
 		this.summary = summary;
 	}
 
-	public String getImage() {
+	public Blob getImage() {
 		return image;
 	}
 
-	public void setImage(String image) {
+	public void setImage(Blob image) {
 		this.image = image;
 	}
 
-	public String getDetail() {
+	public Blob getDetail() {
 		return detail;
 	}
 
-	public void setDetail(String detail) {
+	public void setDetail(Blob detail) {
 		this.detail = detail;
 	}
-	
+
 	public Content AsModel() {
 		Content content = new Content();
-		if(id == null) {
+		if (id == null) {
 			content.setId(0);
-		}
-		else {
+		} else {
 			content.setId(id);
 		}
 		content.setTitle(title);

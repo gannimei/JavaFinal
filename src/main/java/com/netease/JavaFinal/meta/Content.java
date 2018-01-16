@@ -1,13 +1,15 @@
 package com.netease.JavaFinal.meta;
 
+import java.sql.Blob;
+
 public class Content {
 
 	private int id;
-	private long price;
+	private int price;
 	private String title;
-	private String image;
+	private Blob image;
 	private String summary;
-	private String detail;
+	private Blob detail;
 
 	public int getId() {
 		return id;
@@ -17,11 +19,11 @@ public class Content {
 		this.id = id;
 	}
 
-	public long getPrice() {
+	public int getPrice() {
 		return price;
 	}
 
-	public void setPrice(long price) {
+	public void setPrice(int price) {
 		this.price = price;
 	}
 
@@ -33,11 +35,11 @@ public class Content {
 		this.title = title;
 	}
 
-	public String getImage() {
+	public Blob getImage() {
 		return image;
 	}
 
-	public void setImage(String image) {
+	public void setImage(Blob image) {
 		this.image = image;
 	}
 
@@ -49,11 +51,11 @@ public class Content {
 		this.summary = summary;
 	}
 
-	public String getDetail() {
+	public Blob getDetail() {
 		return detail;
 	}
 
-	public void setDetail(String detail) {
+	public void setDetail(Blob detail) {
 		this.detail = detail;
 	}
 

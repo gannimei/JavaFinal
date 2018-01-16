@@ -7,6 +7,7 @@ public class Transaction {
 	private int personId;
 	private int price;
 	private long time;
+	private int number;
 
 	public int getId() {
 		return id;
@@ -46,6 +47,14 @@ public class Transaction {
 
 	public void setTime(long time) {
 		this.time = time;
+	}
+
+	public int getNumber() {
+		return number;
+	}
+
+	public void setNumber(int number) {
+		this.number = number;
 	}
 
 }
