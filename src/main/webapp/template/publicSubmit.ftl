@@ -8,7 +8,7 @@
     <#if product>
     <div class="n-result">
         <h3>发布成功！</h3>
-        <p><a href="show?id=${product.getId()}">[查看内容]</a><a href="index">[返回首页]</a></p>
+        <p><a href="show?id=${product.id}">[查看内容]</a><a href="index">[返回首页]</a></p>
     </div>
     <#else>
     <div class="n-result">

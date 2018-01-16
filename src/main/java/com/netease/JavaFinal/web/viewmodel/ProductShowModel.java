@@ -1,7 +1,5 @@
 package com.netease.JavaFinal.web.viewmodel;
 
-import java.sql.Blob;
-
 import com.netease.JavaFinal.dao.TransactionDao;
 import com.netease.JavaFinal.meta.Content;
 import com.netease.JavaFinal.meta.Person;
@@ -10,29 +8,29 @@ import com.netease.JavaFinal.utils.Springfactory;
 
 public class ProductShowModel {
 
-	public int id;
-	public String title;
-	public Blob image;
-	public String summary;
-	public Blob detail;
-	public int price;
-	public int buyPrice;
-	public int buyNum;
-	public int saleNum;
-	public boolean isBuy;
-	public boolean isSell;
+	private int id;
+	private String title;
+	private String image;
+	private String summary;
+	private String detail;
+	private int price;
+	private int buyPrice;
+	private int buyNum;
+	private int saleNum;
+	private boolean isBuy;
+	private boolean isSell;
 
 	public ProductShowModel(Content content, Person user) {
 		this.id = content.getId();
 		this.title = content.getTitle();
-		this.image = content.getImage();
+		this.image = new String(content.getImage());
 		this.summary = content.getSummary();
-		this.detail = content.getDetail();
+		this.detail = new String(content.getDetail());
 		this.price = content.getPrice();
 		TransactionDao transactionDao = Springfactory.getBean("transactionDao");
+		Transaction trx = transactionDao.GetByContentId(content.getId());
 		if (user != null) {
 			if (user.getUserType() == 0) {
-				Transaction trx = transactionDao.GetByPersonId(user.getId());
 				if (trx == null) {
 					isBuy = false;
 				} else {
@@ -41,7 +39,6 @@ public class ProductShowModel {
 					buyNum = trx.getNumber();
 				}
 			} else {
-				Transaction trx = transactionDao.GetByContentId(content.getId());
 				if (trx == null) {
 					isSell = false;
 				} else {
@@ -52,4 +49,92 @@ public class ProductShowModel {
 		}
 	}
 
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
+	}
+
+	public String getSummary() {
+		return summary;
+	}
+
+	public void setSummary(String summary) {
+		this.summary = summary;
+	}
+
+	public String getDetail() {
+		return detail;
+	}
+
+	public void setDetail(String detail) {
+		this.detail = detail;
+	}
+
+	public int getPrice() {
+		return price;
+	}
+
+	public void setPrice(int price) {
+		this.price = price;
+	}
+
+	public int getBuyPrice() {
+		return buyPrice;
+	}
+
+	public void setBuyPrice(int buyPrice) {
+		this.buyPrice = buyPrice;
+	}
+
+	public int getBuyNum() {
+		return buyNum;
+	}
+
+	public void setBuyNum(int buyNum) {
+		this.buyNum = buyNum;
+	}
+
+	public int getSaleNum() {
+		return saleNum;
+	}
+
+	public void setSaleNum(int saleNum) {
+		this.saleNum = saleNum;
+	}
+
+	public boolean isBuy() {
+		return isBuy;
+	}
+
+	public void setBuy(boolean isBuy) {
+		this.isBuy = isBuy;
+	}
+
+	public boolean isSell() {
+		return isSell;
+	}
+
+	public void setSell(boolean isSell) {
+		this.isSell = isSell;
+	}
+	
 }
