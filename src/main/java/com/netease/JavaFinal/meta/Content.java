@@ -5,9 +5,9 @@ public class Content {
 	private int id;
 	private long price;
 	private String title;
-	private String icon;
+	private String image;
 	private String summary;
-	private String text;
+	private String detail;
 
 	public int getId() {
 		return id;
@@ -33,12 +33,12 @@ public class Content {
 		this.title = title;
 	}
 
-	public String getIcon() {
-		return icon;
+	public String getImage() {
+		return image;
 	}
 
-	public void setIcon(String icon) {
-		this.icon = icon;
+	public void setImage(String image) {
+		this.image = image;
 	}
 
 	public String getSummary() {
@@ -49,12 +49,12 @@ public class Content {
 		this.summary = summary;
 	}
 
-	public String getText() {
-		return text;
+	public String getDetail() {
+		return detail;
 	}
 
-	public void setText(String text) {
-		this.text = text;
+	public void setDetail(String detail) {
+		this.detail = detail;
 	}
 
 }
