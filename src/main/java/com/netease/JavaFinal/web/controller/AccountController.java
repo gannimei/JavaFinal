@@ -54,4 +54,10 @@ public class AccountController {
 		return modelView;
 	}
 	
+	@RequestMapping(value = "/logout", method = RequestMethod.GET)
+	public String logout(HttpSession httpSession) {
+		httpSession.invalidate();
+		return "redirect:/login";
+	}
+	
 }

@@ -28,33 +28,6 @@
 		"</tr>";
 	}
 
-	$("newTable").innerHTML = str;
-
-	window.onload = function(){
-		$('newTable').onclick = function(e){
-			var e = arguments[0] || window.event;
-			target = e.srcElement ? e.srcElement : e.target;
-			if(target.nodeName == "SPAN" && target.className == "moreNum"){
-				var num = target.parentElement.children[1].textContent;
-				var id = target.parentElement.children[2].textContent;
-				num ++;
-				target.parentElement.children[1].textContent = num;
-				util.modifyOne(products,id,num);
-			}else if(target.nodeName == "SPAN" && target.className == "lessNum"){
-				var num = target.parentElement.children[1].textContent;
-				var id = target.parentElement.children[2].textContent;
-				num --;
-				if(num < 0){
-					alert("该商品数量为0");
-				}else{
-					target.parentElement.children[1].textContent = num;
-					util.modifyOne(products,id,num);
-				}
-			}
-			return false;
-		};
-	};
-
 	var loading = new Loading();
 	var layer = new Layer();
 	$('Account').onclick = function(e){
@@ -78,16 +51,15 @@
 				                	var json = JSON.parse(xhr.responseText);
 				                	if(json && json.code == 200){
 				                		loading.result('购买成功',function(){location.href = './account.html';});
-				                		util.deleteCookie(name);
 				                	}else{
-				                		alert(json.message);
+				                		loading.result(json.message||'购买失败');
 				                	}
 				                }else{
 				                	loading.result(message||'购买失败');
 				                }
 				            }
 					};
-					 xhr.open('post','/api/buy');
+					 xhr.open('post','api/buy');
 					 xhr.setRequestHeader('Content-Type','application/json');
 					 xhr.send(data);
 				}.bind(this)
@@ -95,6 +67,6 @@
 			return;
 	};
 	$('back').onclick = function(){
-		location.href = window.history.back();
+		window.history.back();
 	}
 })(window,document);

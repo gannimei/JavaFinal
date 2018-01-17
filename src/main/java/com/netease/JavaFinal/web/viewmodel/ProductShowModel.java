@@ -121,19 +121,19 @@ public class ProductShowModel {
 		this.saleNum = saleNum;
 	}
 
-	public boolean isBuy() {
+	public boolean getIsBuy() {
 		return isBuy;
 	}
 
-	public void setBuy(boolean isBuy) {
+	public void setIsBuy(boolean isBuy) {
 		this.isBuy = isBuy;
 	}
 
-	public boolean isSell() {
+	public boolean getIsSell() {
 		return isSell;
 	}
 
-	public void setSell(boolean isSell) {
+	public void setIsSell(boolean isSell) {
 		this.isSell = isSell;
 	}
 	

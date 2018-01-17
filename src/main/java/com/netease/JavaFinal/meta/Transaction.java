@@ -8,6 +8,18 @@ public class Transaction {
 	private int price;
 	private long time;
 	private int number;
+	private String title;
+	private byte[] image;
+	
+	public Transaction() {}
+	
+	public Transaction(Shopping shopping) {
+		this.contentId = shopping.getContentId();
+		this.personId = shopping.getPersonId();
+		this.price = shopping.getPrice();
+		this.number = shopping.getNumber();
+		this.time = System.currentTimeMillis();
+	}
 
 	public int getId() {
 		return id;
@@ -55,6 +67,26 @@ public class Transaction {
 
 	public void setNumber(int number) {
 		this.number = number;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public String getImage() {
+		return new String(image);
+	}
+
+	public void setImage(byte[] image) {
+		this.image = image;
+	}
+	
+	public int getTotal() {
+		return price * number;
 	}
 
 }
