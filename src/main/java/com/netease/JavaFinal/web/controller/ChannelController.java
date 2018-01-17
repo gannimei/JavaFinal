@@ -227,5 +227,29 @@ public class ChannelController {
 		model.addAttribute("buyList", buyList);
 		return "account";
 	}
+	
+	@RequestMapping(value = "/edit", method = RequestMethod.GET)
+	public String Edit(@RequestParam("id") int id, Model model) {
+		model.addAttribute("title", "编辑");
+		Content content = contentDao.GetById(id);
+		if(content != null) {
+			model.addAttribute("product", new ContentEditModel(content));
+		}
+		return "edit";
+	}
+	
+	@RequestMapping(value = "/editSubmit", method = RequestMethod.POST)
+	public String EditSubmit(@ModelAttribute ContentEditModel contentModel, Model model) {
+		try {
+			Content content = contentModel.AsModel();
+			contentDao.Update(content);
+			model.addAttribute("title", "发布成功");
+			model.addAttribute("product", content);
+		} catch (Exception e) {
+			e.printStackTrace();
+			model.addAttribute("title", "发布失败");
+		}
+		return "editSubmit";
+	}
 
 }

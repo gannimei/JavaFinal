@@ -10,6 +10,17 @@ public class ContentEditModel {
 	private String summary;
 	private String image;
 	private String detail;
+	
+	public ContentEditModel() {}
+	
+	public ContentEditModel(Content content) {
+		this.id = content.getId();
+		this.title = content.getTitle();
+		this.price = content.getPrice();
+		this.summary = content.getSummary();
+		this.image = new String(content.getImage());
+		this.detail = new String(content.getDetail());
+	}
 
 	public Integer getId() {
 		return id;

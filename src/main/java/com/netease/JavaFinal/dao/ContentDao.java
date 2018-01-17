@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 import org.apache.ibatis.type.BlobTypeHandler;
 import org.apache.ibatis.type.JdbcType;
 
@@ -53,5 +54,8 @@ public interface ContentDao {
 	@Insert("insert into content(title,price,icon,abstract,text) values(#{title},#{price},#{image,jdbcType=BLOB},#{summary},#{detail,jdbcType=BLOB})")
 	@Options(useGeneratedKeys = true, keyProperty = "id")   
 	public int Insert(Content content);
+	
+	@Update("update content set title=#{title},icon=#{price},icon=#{image,jdbcType=BLOB},abstract=#{summary},text=#{detail,jdbcType=BLOB} where id=#{id}")
+	public int Update(Content content);
 	
 }
