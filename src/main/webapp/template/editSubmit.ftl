@@ -8,12 +8,12 @@
     <#if product>
     <div class="n-result">
         <h3>编辑成功！</h3>
-        <p><a href="show?id=${product.id}">[查看内容]</a><a href="index">[返回首页]</a></p>
+        <p><a href="${base}/show?id=${product.id}">[查看内容]</a><a href="${base}/">[返回首页]</a></p>
     </div>
     <#else>
     <div class="n-result">
         <h3>编辑失败！</h3>
-        <p><a href="edit?id=${product.id}">[重新编辑]</a><a href="index">[返回首页]</a></p>
+        <p><a href="${base}/edit?id=${product.id}">[重新编辑]</a><a href="${base}/">[返回首页]</a></p>
     </div>
     </#if>
 </div>

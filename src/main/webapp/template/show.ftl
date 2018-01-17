@@ -11,7 +11,7 @@
     </div>
     <#else>
     <div class="n-show f-cb" id="showContent">
-        <div class="img"><img src="${product.image}" alt="" ></div>
+        <div class="img"><img src="${base}/${product.image}" alt="" ></div>
         <div class="cnt">
             <h2>${product.title}</h2>
             <p class="summary">${product.summary}</p>
@@ -44,7 +44,7 @@
     </#if>
 </div>
 <#include "/include/footer.ftl">
-<script type="text/javascript" src="js/global.js"></script>
-<script type="text/javascript" src="js/pageShow.js"></script>
+<script type="text/javascript" src="${base}/js/global.js"></script>
+<script type="text/javascript" src="${base}/js/pageShow.js"></script>
 </body>
 </html>

@@ -1,4 +1,5 @@
 (function(w,d,u){
+	var base = document.getElementById("base").href;
 	var plist = util.get('plist');
 	if(!plist){
 		return;
@@ -23,7 +24,7 @@
 					layer.hide();
 					loading.show();
 					ajax({
-						url:'/api/delete',
+						url:base+'/api/delete',
 						data:{id:id},
 						success:function(json){
 							this.delItemNode(id);

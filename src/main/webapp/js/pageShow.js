@@ -1,4 +1,4 @@
-
+	var base = document.getElementById("base").href;
 	var $ = function(id){
 		return document.getElementById(id);
 	}
@@ -39,7 +39,7 @@
 				loading.show();
 				ajax({
 					data:{number:num,contentId:id},
-					url:'api/addShopping',
+					url:base+'/api/addShopping',
 					success:function(result){
 						loading.result('添加购物车成功');
 					},

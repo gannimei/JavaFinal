@@ -200,6 +200,7 @@ public class ChannelController {
 	@RequestMapping(value = "/api/buy", method = RequestMethod.POST)
 	public ModelAndView Buy() {
 		try {
+			System.out.println("aaa");
 			ModelAndView modelView = new ModelAndView();
 			Map<String, Object> modelMap = new HashMap<String, Object>();
 			transactionService.SettleAccounts();

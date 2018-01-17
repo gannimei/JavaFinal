@@ -27,8 +27,8 @@
         	<tbody>
         		<#list shoppingList as item>
         			<tr>
-        				<td><a href="show?id=${item.contentId}"><img src="${item.image}" alt=""></a></td>
-        				<td><h4><a href="show?id=${item.contentId}">${item.title}</a></h4></td>
+        				<td><a href="${base}/show?id=${item.contentId}"><img src="${base}/${item.image}" alt=""></a></td>
+        				<td><h4><a href="${base}/show?id=${item.contentId}">${item.title}</a></h4></td>
         				<td><span class="v-time">${item.time?number_to_datetime?string("yyyy-MM-dd HH:mm")}</span></td>
 		                <td><span class="v-num">${item.number}</span></td>
 		                <td><span class="v-unit">¥</span><span class="value">${item.price}</span></td>
@@ -45,7 +45,7 @@
 	</#if>
 </div>
 <#include "/include/footer.ftl">
-<script type="text/javascript" src="js/global.js"></script>
-<script type="text/javascript" src="js/settleAccount.js"></script>
+<script type="text/javascript" src="${base}/js/global.js"></script>
+<script type="text/javascript" src="${base}/js/settleAccount.js"></script>
 </body>
 </html>

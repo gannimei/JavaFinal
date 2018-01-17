@@ -1,4 +1,5 @@
 (function(w,d,u){
+	var base = document.getElementById("base").href;
 	var loginForm = util.get('loginForm');
 	if(!loginForm){
 		return;
@@ -17,10 +18,10 @@
 					loading.show();
 					ajax({
 						data:{userName:value1,password:value2},
-						url:'api/login',
+						url:base+'/api/login',
 						success:function(result){
 							loading.hide();
-							location.href = 'index';
+							location.href = base+"/";
 						},
 						error:function(message){
 							loading.result(message||'登录失败');

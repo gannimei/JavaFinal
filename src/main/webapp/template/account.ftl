@@ -23,8 +23,8 @@
             <#list buyList as x>
             <#assign total = total + x.total>
             <tr>
-                <td><a href="show?id=${x.contentId}"><img src="${x.image}" alt=""></a></td>
-                <td><h4><a href="show?id=${x.contentId}">${x.title}</a></h4></td>
+                <td><a href="${base}/show?id=${x.contentId}"><img src="${base}/${x.image}" alt=""></a></td>
+                <td><h4><a href="${base}/show?id=${x.contentId}">${x.title}</a></h4></td>
                 <td><span class="v-time">${x.time?number_to_datetime?string("yyyy-MM-dd HH:mm")}</span></td>
                 <td><span class="v-num">${x.number}</span></td>
                 <td><span class="v-unit">¥</span><span class="value">${x.total}</span></td>

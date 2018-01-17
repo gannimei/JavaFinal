@@ -3,7 +3,8 @@
 <#include "/include/head.ftl">
 <body>
 <#include "/include/support.ftl">
-<#include "/include/header.ftl"><div class="g-doc">
+<#include "/include/header.ftl">
+<div class="g-doc">
     <div class="m-tab m-tab-fw m-tab-simple f-cb">
         <h2>内容编辑</h2>
     </div>
@@ -13,7 +14,7 @@
     </div>
     <#else>
     <div class="n-public">
-        <form class="m-form m-form-ht" id="form" method="post" action="editSubmit?id=${product.id}" onsubmit="return false;" autocomplete="off">
+        <form class="m-form m-form-ht" id="form" method="post" action="${base}/editSubmit?id=${product.id}" onsubmit="return false;" autocomplete="off">
             <div class="fmitem">
                 <label class="fmlab">标题：</label>
                 <div class="fmipt">
@@ -67,7 +68,7 @@
     </#if>
 </div>
 <#include "/include/footer.ftl">
-<script type="text/javascript" src="js/global.js"></script>
-<script type="text/javascript" src="js/public.js"></script>
+<script type="text/javascript" src="${base}/js/global.js"></script>
+<script type="text/javascript" src="${base}/js/public.js"></script>
 </body>
 </html>
