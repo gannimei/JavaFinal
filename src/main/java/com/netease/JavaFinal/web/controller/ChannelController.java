@@ -27,6 +27,7 @@ import com.netease.JavaFinal.meta.Person;
 import com.netease.JavaFinal.meta.Shopping;
 import com.netease.JavaFinal.meta.Transaction;
 import com.netease.JavaFinal.service.TransactionService;
+import com.netease.JavaFinal.utils.AuthorityFilter;
 import com.netease.JavaFinal.utils.CurrentUser;
 import com.netease.JavaFinal.web.viewmodel.ContentEditModel;
 import com.netease.JavaFinal.web.viewmodel.ProductShowModel;
@@ -48,7 +49,6 @@ public class ChannelController {
 	@RequestMapping(value = { "/", "/index" }, method = RequestMethod.GET)
 	public String Index(@CurrentUser Person user, Model model,
 			@RequestParam(value = "type", defaultValue = "0") int type) {
-		model.addAttribute("user", user);
 		model.addAttribute("title", "首页");
 		List<ProductShowModel> productList = null;
 		if (type != 1) {
@@ -72,12 +72,14 @@ public class ChannelController {
 		return "index";
 	}
 
+	@AuthorityFilter(type = 1)
 	@RequestMapping(value = "/public", method = RequestMethod.GET)
 	public String Public(Model model) {
 		model.addAttribute("title", "发布");
 		return "public";
 	}
 
+	@AuthorityFilter(type = 1)
 	@RequestMapping(value = "/publicSubmit", method = RequestMethod.POST)
 	public String PublicSubmit(@ModelAttribute ContentEditModel contentModel, Model model) {
 		try {
@@ -92,6 +94,7 @@ public class ChannelController {
 		return "publicSubmit";
 	}
 
+	@AuthorityFilter(type = 1)
 	@RequestMapping(value = "/api/upload", method = RequestMethod.POST)
 	public ModelAndView Upload(@RequestParam("file") MultipartFile file) {
 		try {
@@ -137,6 +140,7 @@ public class ChannelController {
 		return "show";
 	}
 
+	@AuthorityFilter(type = 0)
 	@RequestMapping(value = "/api/addShopping", method = RequestMethod.POST)
 	public ModelAndView AddShopping(@RequestParam("number") int number, @RequestParam("contentId") int contentId,
 			@CurrentUser Person user) {
@@ -189,6 +193,7 @@ public class ChannelController {
 		}
 	}
 
+	@AuthorityFilter(type = 0)
 	@RequestMapping(value = "/settleAccount", method = RequestMethod.GET)
 	public String SettleAccount(Model model) {
 		List<Shopping> shoppingList = shoppingDao.GetAll();
@@ -197,10 +202,10 @@ public class ChannelController {
 		return "settleAccount";
 	}
 
+	@AuthorityFilter(type = 0)
 	@RequestMapping(value = "/api/buy", method = RequestMethod.POST)
 	public ModelAndView Buy() {
 		try {
-			System.out.println("aaa");
 			ModelAndView modelView = new ModelAndView();
 			Map<String, Object> modelMap = new HashMap<String, Object>();
 			transactionService.SettleAccounts();
@@ -221,6 +226,7 @@ public class ChannelController {
 		}
 	}
 	
+	@AuthorityFilter(type = 0)
 	@RequestMapping(value = "/account", method = RequestMethod.GET)
 	public String Account(@CurrentUser Person user, Model model) {
 		List<Transaction> buyList = transactionDao.GetByPersonId(user.getId());
@@ -229,6 +235,7 @@ public class ChannelController {
 		return "account";
 	}
 	
+	@AuthorityFilter(type = 1)
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
 	public String Edit(@RequestParam("id") int id, Model model) {
 		model.addAttribute("title", "编辑");
@@ -239,6 +246,7 @@ public class ChannelController {
 		return "edit";
 	}
 	
+	@AuthorityFilter(type = 1)
 	@RequestMapping(value = "/editSubmit", method = RequestMethod.POST)
 	public String EditSubmit(@ModelAttribute ContentEditModel contentModel, Model model) {
 		try {
@@ -251,6 +259,37 @@ public class ChannelController {
 			model.addAttribute("title", "发布失败");
 		}
 		return "editSubmit";
+	}
+	
+	@AuthorityFilter(type = 1)
+	@RequestMapping(value = "/api/delete", method = RequestMethod.POST)
+	public ModelAndView Delete(@RequestParam("id") int id) {
+		try {
+			ModelAndView modelView = new ModelAndView();
+			Map<String, Object> modelMap = new HashMap<String, Object>();
+			contentDao.Delete(id);
+			modelMap.put("code", 200);
+			modelMap.put("message", "");
+			modelMap.put("result", "");
+			modelView.addAllObjects(modelMap);
+			return modelView;
+		} catch (Exception e) {
+			e.printStackTrace();
+			ModelAndView modelView = new ModelAndView();
+			Map<String, Object> modelMap = new HashMap<String, Object>();
+			modelMap.put("code", 400);
+			modelMap.put("message", e.toString());
+			modelMap.put("result", false);
+			modelView.addAllObjects(modelMap);
+			return modelView;
+		}
+	}
+	
+	@RequestMapping(value = "/error", method = RequestMethod.GET)
+	public String Error(@RequestParam("message") String message, Model model) {
+		model.addAttribute("title", "系统错误");
+		model.addAttribute("message", message);
+		return "error";
 	}
 
 }
