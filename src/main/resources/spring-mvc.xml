@@ -19,10 +19,11 @@
 	</mvc:annotation-driven>
 	
 	<mvc:interceptors>
+		<bean class="com.netease.JavaFinal.web.filter.LoginInterceptor"></bean>
 		<mvc:interceptor>
 			<mvc:mapping path="/*"/>
 			<mvc:mapping path="/api/*"/>
-			<bean class="com.netease.JavaFinal.filter.AuthorityAnnotationInterceptor"></bean>
+			<bean class="com.netease.JavaFinal.web.filter.AuthorityAnnotationInterceptor"></bean>
 		</mvc:interceptor>
 	</mvc:interceptors>
 

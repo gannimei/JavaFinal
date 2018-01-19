@@ -1,4 +1,4 @@
-package com.netease.JavaFinal.filter;
+package com.netease.JavaFinal.web.filter;
 
 import java.io.Writer;
 import java.net.URLEncoder;
