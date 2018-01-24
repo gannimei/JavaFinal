@@ -10,6 +10,8 @@
 	http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
 	<mvc:default-servlet-handler />
+	
+	<mvc:annotation-driven validator="validator" />
 
 	<mvc:annotation-driven>
 		<mvc:argument-resolvers>
@@ -28,8 +30,19 @@
 	</mvc:interceptors>
 
 	<context:component-scan base-package="com.netease.JavaFinal.web.controller" />
+	
+	<bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">
+        <property name="providerClass" value="org.hibernate.validator.HibernateValidator"/>
+    </bean>
 
 	<bean id="springFactory" class="com.netease.JavaFinal.utils.Springfactory">
+	</bean>
+	
+	<bean id="validCreator" class="com.netease.JavaFinal.utils.ValidCreator">
+	</bean>
+	
+	<bean id="validDirective" class="com.netease.JavaFinal.utils.ValidDirective">
+		<constructor-arg ref="validCreator"></constructor-arg>
 	</bean>
 
 	<bean id="multipartResolver"
@@ -41,6 +54,11 @@
 	<bean id="freemarkerConfig"
 		class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
 		<property name="templateLoaderPath" value="/template" />
+		<property name="freemarkerVariables">
+            <map>
+                <entry key="valid" value-ref="validDirective" />
+            </map>
+        </property>
 		<property name="freemarkerSettings">
 			<props>
 				<prop key="classic_compatible">true</prop>

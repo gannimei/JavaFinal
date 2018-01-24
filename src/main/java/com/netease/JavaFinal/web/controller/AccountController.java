@@ -7,10 +7,12 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -19,6 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.netease.JavaFinal.dao.PersonDao;
 import com.netease.JavaFinal.meta.Person;
 import com.netease.JavaFinal.web.viewmodel.LoginEditModel;
+import com.netease.JavaFinal.web.viewmodel.RegisterEditModel;
 
 @Controller
 public class AccountController {
@@ -74,6 +77,19 @@ public class AccountController {
 			}
 		}
 		return "redirect:/login";
+	}
+	
+	@RequestMapping(value = "/register", method = RequestMethod.GET)
+	public String register() {
+		return "register";
+	}
+	
+	@RequestMapping(value = "/register", method = RequestMethod.POST)
+	public String register(@Valid @ModelAttribute("registerModel") RegisterEditModel registerModel, Errors errors) {
+		if(errors.hasErrors()) {
+			return "register";
+		}
+		return "redirect:/";
 	}
 
 }
