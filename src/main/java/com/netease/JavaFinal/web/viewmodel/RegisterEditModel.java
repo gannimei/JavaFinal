@@ -8,15 +8,15 @@ import org.hibernate.validator.constraints.NotEmpty;
 public class RegisterEditModel {
 
 	@NotEmpty(message = "不能为空")
-	@Size(min = 6, max = 15, message = "请输入长度在 %d到%d之间的字符串")
+	@Size(min = 6, max = 15, message = "请输入长度在{min}到{max}之间的字符串")
 	private String userName;
 	
 	@NotEmpty(message = "不能为空")
-	@Length(min = 6, message = "不能少于6个字符")
+	@Length(min = 6, message = "不能少于{min}个字符")
 	private String password;
 	
 	@NotEmpty(message = "不能为空")
-	@Length(min = 6, message = "不能少于6个字符")
+	@Length(min = 6, message = "不能少于{min}个字符")
 	private String confirmPassword;
 
 	public String getUserName() {

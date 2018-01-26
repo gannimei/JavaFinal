@@ -12,7 +12,6 @@ import javax.validation.constraints.Size;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
-import org.springframework.stereotype.Component;
 
 public class ValidCreator {
 	private Map<Class<?>, Method> creator;
@@ -46,8 +45,11 @@ public class ValidCreator {
 	private Map<String, String> CreateSizeRule(Annotation a) {
 		Map<String, String> result = new HashMap<String, String>();
 		Size size = (Size) a;
+		String message = size.message();
+		message = message.replace("{min}", String.valueOf(size.min()));
+		message = message.replace("{max}", String.valueOf(size.max()));
 		result.put("rule", String.format("\n\t\t\t\trangelength:[%s,%s],", size.min(), size.max()));
-		result.put("message", "\n\t\t\t\trangelength:\"" + String.format(size.message(), size.min(), size.max()) + "\",");
+		result.put("message", "\n\t\t\t\trangelength:\"" + message + "\",");
 		return result;
 	}
 
@@ -62,26 +64,30 @@ public class ValidCreator {
 	private Map<String, String> CreateMinRule(Annotation a) {
 		Map<String, String> result = new HashMap<String, String>();
 		Min min = (Min) a;
+		String message = min.message();
+		message = message.replace("{min}", String.valueOf(min.value()));
 		result.put("rule", String.format("\n\t\t\t\tmin:%s,", min.value()));
-		result.put("message", "\n\t\t\t\trangelength:\"" + String.format(min.message(), min.value()) + "\",");
+		result.put("message", "\n\t\t\t\trangelength: \"" + message + "\",");
 		return result;
 	}
 
 	private Map<String, String> CreateLengthRule(Annotation a) {
 		Map<String, String> result = new HashMap<String, String>();
 		Length length = (Length) a;
+		String message = length.message();
+		message = message.replace("{min}", String.valueOf(length.min()));
+		message = message.replace("{max}", String.valueOf(length.max()));
 		if (length.min() == 0 && length.max() != Integer.MAX_VALUE) {
 			result.put("rule", String.format("\n\t\t\t\tmaxlength:%s,", length.max()));
-			result.put("message", "\n\t\t\t\tmaxlength:\"" + String.format(length.message(), length.max()) + "\",");
+			result.put("message", "\n\t\t\t\tmaxlength: \"" + message + "\",");
 		}
 		if (length.max() == Integer.MAX_VALUE && length.min() != 0) {
 			result.put("rule", String.format("\n\t\t\t\tminlength:%s,", length.min()));
-			result.put("message", "\n\t\t\t\tminlength:\"" + String.format(length.message(), length.min()) + "\",");
+			result.put("message", "\n\t\t\t\tminlength: \"" + message + "\",");
 		}
 		if (length.min() != 0 && length.max() != Integer.MAX_VALUE) {
 			result.put("rule", String.format("\n\t\t\t\trangelength:[%s,%s],", length.min(), length.max()));
-			result.put("message",
-					"\n\t\t\t\trangelength:\"" + String.format(length.message(), length.min(), length.max()) + "\",");
+			result.put("message", "\n\t\t\t\trangelength: \"" + message + "\",");
 		}
 		return result;
 	}
