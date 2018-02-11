@@ -34,7 +34,7 @@ public class ValidDirective implements TemplateDirectiveModel {
 			Class<?> c = Class.forName(className);
 			Field[] fields = c.getDeclaredFields();
 			for (Field field : fields) {
-				Map<String, String> result = GetValidationRule(field);
+				Map<String, String> result = GetValidationRule(field, c);
 				if (result.containsKey("rule") && result.containsKey("message")) {
 					String fieldRule = String.format("\n\t\t\t" + field.getName() + ": {%s\n\t\t\t},",
 							result.get("rule"));
@@ -67,11 +67,16 @@ public class ValidDirective implements TemplateDirectiveModel {
 		}
 	}
 
-	private Map<String, String> GetValidationRule(Field field)
+	private Map<String, String> GetValidationRule(Field field, Class<?> c)
 			throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
 		Map<String, String> result = new HashMap<String, String>();
 		String rule = "";
 		String message = "";
+		Compare compare = c.getDeclaredAnnotation(Compare.class);
+		if(compare != null && field.getName().equals(compare.verifyField())) {
+			rule += String.format("\n\t\t\t\tequalTo:\"#%s\",", compare.field());
+			message += ("\n\t\t\t\tequalTo:\"" + compare.message() + "\",");
+		}
 		Annotation[] annotations = field.getAnnotations();
 		for (Annotation a : annotations) {
 			Map<String, String> valid = validCreator.CreateValidation(a);

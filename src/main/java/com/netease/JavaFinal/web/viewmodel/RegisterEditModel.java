@@ -5,6 +5,9 @@ import javax.validation.constraints.Size;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
+import com.netease.JavaFinal.utils.Compare;
+
+@Compare(field = "password", verifyField = "confirmPassword", message = "两次输入密码不一致")
 public class RegisterEditModel {
 
 	@NotEmpty(message = "不能为空")
@@ -15,8 +18,6 @@ public class RegisterEditModel {
 	@Length(min = 6, message = "不能少于{min}个字符")
 	private String password;
 	
-	@NotEmpty(message = "不能为空")
-	@Length(min = 6, message = "不能少于{min}个字符")
 	private String confirmPassword;
 
 	public String getUserName() {
